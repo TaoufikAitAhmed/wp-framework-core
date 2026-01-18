@@ -1,0 +1,59 @@
+<?php
+
+namespace App\Taxonomies;
+
+use themes\Wordpress\Framework\Core\Term;
+
+class DummyTaxonomy extends Term
+{
+
+    /**
+     * Return the key used to register the taxonomy with WordPress
+     *
+     * First parameter of the `register_taxonomy` function:
+     * https://developer.wordpress.org/reference/functions/register_taxonomy/
+     *
+     * @return string
+     */
+    public static function getTaxonomyType(): string
+    {
+        return 'dummy-taxonomy-name';
+    }
+
+    /**
+     * Return the object type which use this taxonomy.
+     *
+     * Second parameter of the `register_taxonomy` function:
+     * https://developer.wordpress.org/reference/functions/register_taxonomy/
+     *
+     * @return array|null
+     */
+    public static function getTaxonomyObjectTypes(): ?array
+    {
+        return ['post'];
+    }
+
+    /**
+     * Return the config to use to register the taxonomy with WordPress
+     *
+     * Third parameter of the `register_taxonomy` function:
+     * https://developer.wordpress.org/reference/functions/register_taxonomy/
+     *
+     * @return array|null
+     */
+    protected static function getTaxonomyConfig(): ?array
+    {
+        return [
+            'labels'      => [
+                'name'          => __('DummyPlural'),
+                'singular_name' => __('DummySingular'),
+            ],
+            'public'      => true,
+            'has_archive' => true,
+            'rewrite'     => [
+                'slug' => 'dummy-slug',
+            ],
+        ];
+    }
+
+}

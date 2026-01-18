@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Acf\Partials;
+
+use themes\Wordpress\Framework\Core\Acf\Partial;
+use StoutLogic\AcfBuilder\FieldsBuilder;
+
+class DummyClass extends Partial
+{
+    /**
+     * The field group.
+     *
+     * @return FieldsBuilder
+     * @throws \StoutLogic\AcfBuilder\FieldNameCollisionException
+     */
+    public function fields(): FieldsBuilder
+    {
+        //@formatter:off
+        $dummyCamel = new FieldsBuilder('DummySnake');
+
+        $dummyCamel
+            ->addRepeater('items')
+                ->addText('item')
+            ->endRepeater();
+
+        return $dummyCamel;
+        //@formatter:on
+    }
+}

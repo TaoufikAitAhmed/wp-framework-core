@@ -1,0 +1,34 @@
+<?php
+
+/**
+* Template Name: {%TEMPLATE_NAME%}
+*/
+
+namespace App;
+
+use App\Http\Controllers\Controller;
+use Rareloop\Lumberjack\Http\Responses\TimberResponse;
+use Timber\Timber;
+use Timber\Post;
+{%USE_STATEMENTS%}
+
+class DummyController extends Controller
+{
+  /**
+  * Handle the request.
+  *
+  * @return TimberResponse
+  * @throws \Rareloop\Lumberjack\Exceptions\TwigTemplateNotFoundException
+  */
+  public function handle(): TimberResponse
+  {
+    $context = Timber::get_context();
+
+    $context['post'] = new Post();
+
+    $context['controller_path'] = get_page_template_slug();
+    $context['controller_name'] = pathinfo(__FILE__, PATHINFO_FILENAME);
+
+    return new TimberResponse('{{ controller_view_path }}', $context);
+  }
+}

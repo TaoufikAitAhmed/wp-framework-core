@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Plugins;
+
+use themes\Wordpress\Framework\Core\Plugins\Plugin;
+
+class DummyClassName extends Plugin
+{
+
+    /**
+     * Clean plugins assets (js, css, ...)
+     *
+     * @return void
+     */
+    public function clean(): void
+    {
+        //
+    }
+
+}

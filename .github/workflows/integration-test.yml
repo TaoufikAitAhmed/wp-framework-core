@@ -1,0 +1,77 @@
+name: "🧪 Integration tests"
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [ '7.4' ]
+        wp: [ 'latest' ]
+
+    name: PHP ${{ matrix.php }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer:v2
+          extensions: curl, date, dom, iconv, json, libxml, mysql, ${{ matrix.extensions }}
+          ini-values: pcov.directory=lib
+
+      - name: Shutdown default MySQL service
+        run: sudo service mysql stop
+
+      - uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql database: 'wordpress_integration_tests'
+          mysql user: 'wordpress'
+          mysql password: 'wordpress'
+
+      - name: Verify MYSQL connection
+        run: |
+          while ! mysqladmin ping -h"127.0.0.1" -P3306 --silent; do
+            sleep 1
+          done
+
+      - name: Setup problem matchers for PHP
+        run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+
+      - name: Setup problem matchers for PHPUnit
+        run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+      - name: Add HTTP basic auth credentials
+        run: echo '${{ secrets.COMPOSER_AUTH_JSON }}' > $GITHUB_WORKSPACE/auth.json
+
+      - name: Install composer dependencies
+        run: composer install --prefer-dist --no-interaction
+
+      - name: Run tests
+        run: cd tests/Integration && ../../vendor/bin/phpunit --testdox --coverage-clover=coverage.xml
+        env:
+          WP_DB_NAME: 'wordpress_integration_tests'
+          WP_DB_USER: 'wordpress'
+          WP_DB_PASS: 'wordpress'
+          WP_DB_HOST: '127.0.0.1:3306'
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+          files: ./tests/Integration/coverage.xml
+          flags: integrationtests # optional
+          name: codecov-umbrella
+          fail_ci_if_error: true

@@ -1,0 +1,27 @@
+<?php
+
+namespace Database\Factories;
+
+use themes\Wordpress\Framework\Core\Database\Factories\AcfPartialFactory;
+
+class DummyClassName extends AcfPartialFactory
+{
+    /**
+     * The ACF Partial linked to this Factory.
+     *
+     * @var ?\themes\Wordpress\Framework\Core\Acf\Partial
+     */
+    protected $acfPartial = \App\Acf\Partials\DummyClassNameWithoutFactory::class;
+
+    /**
+     * Define the DummyClassNameWithSpaces default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            //
+        ];
+    }
+}

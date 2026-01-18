@@ -1,0 +1,9 @@
+includes:
+	    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+parameters:
+	level: max
+	paths:
+		- src
+	scanFiles:
+	    - vendor/paulthewalton/acf-stubs/acf-stubs.php
+	    - vendor/paulthewalton/acf-pro-stubs/acf-pro-stubs.php

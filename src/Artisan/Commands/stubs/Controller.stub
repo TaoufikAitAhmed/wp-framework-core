@@ -1,0 +1,9 @@
+<?php
+
+namespace App\Http\Controllers;
+
+{%USE_STATEMENTS%}
+
+class DummyController extends Controller
+{
+}

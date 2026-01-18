@@ -1,0 +1,17 @@
+codecov:
+  bot: "codecov-io"
+  require_ci_to_pass: false
+
+coverage:
+  status:
+    project:
+      default:
+        # The required coverage value
+        target: 80%
+        # Allow coverage to drop by as much as 2% from the parent commit or pull request base
+        threshold: 2%
+
+comment:
+  layout: "header, diff, changes, tree"
+  behavior: default
+  require_changes: true

@@ -1,0 +1,13 @@
+<?php
+
+namespace App\ViewModels;
+
+use Rareloop\Lumberjack\ViewModel;
+
+class DummyViewModel extends ViewModel
+{
+    public function __construct()
+    {
+        //
+    }
+}

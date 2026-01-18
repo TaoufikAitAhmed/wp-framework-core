@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Acf\Fields;
+
+use themes\Wordpress\Framework\Core\Acf\Field;
+use StoutLogic\AcfBuilder\FieldsBuilder;
+
+class DummyClass extends Field
+{
+    /**
+     * The field group.
+     *
+     * @return array
+     * @throws \StoutLogic\AcfBuilder\FieldNameCollisionException
+     */
+    public function fields(): array
+    {
+        //@formatter:off
+        $dummyCamel = new FieldsBuilder('DummySnake');
+
+        $dummyCamel
+            ->setLocation('post_type', '==', 'post');
+
+        $dummyCamel
+            ->addRepeater('items')
+                ->addText('item')
+            ->endRepeater();
+
+        return $dummyCamel->build();
+        //@formatter:on
+    }
+}

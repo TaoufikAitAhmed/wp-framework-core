@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Acf\Options;
+
+use themes\Wordpress\Framework\Core\Acf\Options as Field;
+use StoutLogic\AcfBuilder\FieldsBuilder;
+
+class DummyClass extends Field
+{
+    /**
+     * The option page menu name.
+     *
+     * @var string
+     */
+    public string $name = 'DummyClass';
+
+    /**
+     * The option page document title.
+     *
+     * @var string
+     */
+    public string $title = 'DummyClass | Options';
+
+    /**
+     * The option page field group.
+     *
+     * @return array
+     * @throws \StoutLogic\AcfBuilder\FieldNameCollisionException
+     */
+    public function fields(): array
+    {
+        //@formatter:off
+        $dummyCamel = new FieldsBuilder('DummySnake');
+
+        $dummyCamel
+            ->addRepeater('items')
+                ->addText('item')
+            ->endRepeater();
+
+        return $dummyCamel->build();
+        //@formatter:on
+    }
+}

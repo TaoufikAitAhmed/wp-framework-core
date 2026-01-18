@@ -1,0 +1,36 @@
+<?php
+
+namespace Database\Factories;
+
+use themes\Wordpress\Framework\Core\Database\Factories\Factory;
+
+class DummyClassName extends Factory
+{
+    /**
+     * Raw attributes of DummyClassNameWithSpaces.
+     *
+     * @var array|null
+     */
+    protected ?array $properties = null;
+
+    /**
+     * Define the DummyClassNameWithSpaces default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    /**
+     * Generates entry of DummyClassNameWithSpaces.
+     */
+    public function generate()
+    {
+        $this->properties = $this->getRawAttributes();
+        // TODO : Generate one DummyClassNameWithSpaces.
+    }
+}

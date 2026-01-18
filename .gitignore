@@ -1,0 +1,7 @@
+/vendor
+.idea/
+node_modules/
+.phpunit.result.cache
+tests/wordpress/
+composer.lock
+.php_cs.cache
